@@ -1,0 +1,217 @@
+{
+	"info": {
+		"_postman_id": "c7a2b9d4-8e1f-490b-9321-71e285a812f0",
+		"name": "CSE 230 Week 7 - Collaborative To-Do List REST API Collection",
+		"description": "Exported Postman Collection for CSE 230 Lesson 7 Assignment by Ankit Katwal. Contains pre-configured requests for all 5 REST API endpoints (POST, GET All, GET One, PUT/PATCH, DELETE) and error validation testing.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "1. CREATE Task (POST /api/tasks)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"title\": \"Complete CSE 230 Week 7 Assignment Report\",\n  \"description\": \"Write 5-6 page APA 7th Edition project report for Node.js REST API server\",\n  \"isCompleted\": false,\n  \"dueDate\": \"2026-08-15T23:59:59.000Z\"\n}"
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/api/tasks",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"tasks"
+					]
+				},
+				"description": "Creates a new task resource. Returns 201 Created with JSON task object."
+			},
+			"response": []
+		},
+		{
+			"name": "2. CREATE Validation Error Test (POST /api/tasks)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"title\": \"\",\n  \"description\": \"Test empty title validation error\"\n}"
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/api/tasks",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"tasks"
+					]
+				},
+				"description": "Triggers 400 Bad Request validation error when title is empty."
+			},
+			"response": []
+		},
+		{
+			"name": "3. READ ALL Tasks (GET /api/tasks)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:5000/api/tasks",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"tasks"
+					]
+				},
+				"description": "Retrieves an array of all tasks stored in the database. Returns 200 OK."
+			},
+			"response": []
+		},
+		{
+			"name": "4. READ Filtered Tasks (GET /api/tasks?completed=true)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:5000/api/tasks?completed=true",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"tasks"
+					],
+					"query": [
+						{
+							"key": "completed",
+							"value": "true"
+						}
+					]
+				},
+				"description": "Filters tasks by completion status using query parameters. Returns 200 OK."
+			},
+			"response": []
+		},
+		{
+			"name": "5. READ INDIVIDUAL Task (GET /api/tasks/:id)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:5000/api/tasks/66b8d4e92a1b3c4d5e6f7a8b",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"tasks",
+						"66b8d4e92a1b3c4d5e6f7a8b"
+					]
+				},
+				"description": "Extracts task ID from path parameter. Returns 200 OK or 404 Not Found."
+			},
+			"response": []
+		},
+		{
+			"name": "6. UPDATE Task (PUT /api/tasks/:id)",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"isCompleted\": true\n}"
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/api/tasks/66b8d4e92a1b3c4d5e6f7a8b",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"tasks",
+						"66b8d4e92a1b3c4d5e6f7a8b"
+					]
+				},
+				"description": "Updates task completion status or title. Returns 200 OK with updated task object."
+			},
+			"response": []
+		},
+		{
+			"name": "7. DELETE Task (DELETE /api/tasks/:id)",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:5000/api/tasks/66b8d4e92a1b3c4d5e6f7a8b",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"tasks",
+						"66b8d4e92a1b3c4d5e6f7a8b"
+					]
+				},
+				"description": "Removes task resource from database. Returns 200 OK confirmation."
+			},
+			"response": []
+		}
+	]
+}

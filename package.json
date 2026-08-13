@@ -1,0 +1,28 @@
+{
+  "name": "ankitkatwal_todo_api",
+  "version": "1.0.0",
+  "description": "Production-ready REST API for Collaborative To-Do List Application built with Node.js, Express, and MongoDB Mongoose for CSE 230",
+  "main": "server.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "nodejs",
+    "express",
+    "mongodb",
+    "mongoose",
+    "rest-api",
+    "todo-app"
+  ],
+  "author": "Ankit Katwal",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "mongoose": "^8.9.5"
+  }
+}
