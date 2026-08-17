@@ -1,57 +1,49 @@
 require("dotenv").config();
 const express = require("express");
-const mongoose = require("mongoose");
 const cors = require("cors");
+const connectDB = require("./config/db");
 const taskRoutes = require("./routes/taskRoutes");
-const errorHandler = require("./middleware/errorHandler");
+const notFound = require("./middleware/notFoundMiddleware");
+const errorHandler = require("./middleware/errorMiddleware");
 
 const app = express();
 const PORT = process.env.PORT || 5000;
-const MONGODB_URI = process.env.MONGODB_URI || "mongodb://127.0.0.1:27017/todo_db";
+
+// Connect to MongoDB Database
+connectDB();
 
 // Global Middleware
 app.use(cors());
 app.use(express.json());
 
-// Root Landing Page Status & API Overview
+// API Health Check & Documentation Route
 app.get("/", (req, res) => {
   res.status(200).json({
     status: "Active",
-    application: "Collaborative To-Do List REST API Server",
+    application: "Collaborative To-Do List REST API",
     author: "Ankit Katwal",
     course: "CSE 230 Web Design & Development",
-    database: mongoose.connection.readyState === 1 ? "Connected to MongoDB" : "Fallback / Connecting",
     endpoints: {
+      health: "GET /",
       createTask: "POST /api/tasks",
-      getAllTasks: "GET /api/tasks (query filter ?completed=true)",
+      getAllTasks: "GET /api/tasks (filter: ?completed=true)",
       getTaskById: "GET /api/tasks/:id",
-      updateTask: "PUT /api/tasks/:id",
+      updateTask: "PUT/PATCH /api/tasks/:id",
       deleteTask: "DELETE /api/tasks/:id",
     },
   });
 });
 
-// API Routes
+// Mount Routes
 app.use("/api/tasks", taskRoutes);
 
-// Central Global Error Handler (Syllabus Requirement)
+// 404 & Central Error Handling Middleware
+app.use(notFound);
 app.use(errorHandler);
 
-// Database Connection & Server Initialization
-mongoose
-  .connect(MONGODB_URI)
-  .then(() => {
-    console.log(`[Database] Successfully connected to MongoDB at ${MONGODB_URI}`);
-    app.listen(PORT, () => {
-      console.log(`[Server] To-Do List REST API running on http://127.0.0.1:${PORT}`);
-    });
-  })
-  .catch((err) => {
-    console.warn(`[Database Connection Alert] ${err.message}`);
-    console.log("[Server] Launching Express server on fallback mode...");
-    app.listen(PORT, () => {
-      console.log(`[Server] To-Do List REST API running on http://127.0.0.1:${PORT}`);
-    });
-  });
+// Start Server
+app.listen(PORT, () => {
+  console.log(`[Server] REST API running on http://127.0.0.1:${PORT}`);
+});
 
 module.exports = app;

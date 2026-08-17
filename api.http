@@ -1,0 +1,48 @@
+### 1. API Health Check & Landing Page
+GET http://127.0.0.1:5000/
+Accept: application/json
+
+### 2. Create a New Task (POST /api/tasks)
+POST http://127.0.0.1:5000/api/tasks
+Content-Type: application/json
+
+{
+  "title": "Complete CSE 230 Week 7 Assignment Report",
+  "description": "Write 5-6 page APA 7th Edition project report for Node.js REST API server",
+  "isCompleted": false,
+  "dueDate": "2026-08-20T23:59:59.000Z"
+}
+
+### 3. Create Task Validation Error Test (Empty Title -> 400 Bad Request)
+POST http://127.0.0.1:5000/api/tasks
+Content-Type: application/json
+
+{
+  "title": "",
+  "description": "Test empty title validation error"
+}
+
+### 4. Read All Tasks (GET /api/tasks)
+GET http://127.0.0.1:5000/api/tasks
+Accept: application/json
+
+### 5. Read Filtered Tasks (GET /api/tasks?completed=true)
+GET http://127.0.0.1:5000/api/tasks?completed=true
+Accept: application/json
+
+### 6. Read Individual Task (GET /api/tasks/:id)
+GET http://127.0.0.1:5000/api/tasks/66b8d4e92a1b3c4d5e6f7a8b
+Accept: application/json
+
+### 7. Update Task Status (PUT / PATCH /api/tasks/:id)
+PUT http://127.0.0.1:5000/api/tasks/66b8d4e92a1b3c4d5e6f7a8b
+Content-Type: application/json
+
+{
+  "isCompleted": true,
+  "title": "Setup Node.js Express REST API Architecture"
+}
+
+### 8. Delete Task (DELETE /api/tasks/:id)
+DELETE http://127.0.0.1:5000/api/tasks/66b8d4e92a1b3c4d5e6f7a8b
+Accept: application/json
